@@ -3,10 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Todo List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <header class="header">
+      <section class="header-info">
+        <h1 class="title">TODO</h1>
+        <img src="./assets/images/icon-moon.svg" alt="">
+      </section>
+    </header>
+    <main>
+      <form id="form">
+        <label for="input" class="input-circle"></label>
+        <input type="text" placeholder="Create a new todo..." id="input" class="input">
+      </form>
+      <section id="task-list">
+        <div class="task">
+          <input type="checkbox" id="checkbox-task">
+          <label for="checkbox-task">Ejemplo de task</label>
+          <button class="eliminate-task-button" id="eliminate-task-button">x</button>
+        </div>
+      </section>
+      <section class="filters">
+        <button class="filter-button">All</button>
+        <button class="filter-button">Active</button>
+        <button class="filter-button">Completed</button>
+      </section>
+    </main>
     <script src="./js/scripts.js"></script>
   </body>
 </html>
