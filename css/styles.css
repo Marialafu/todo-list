@@ -1,3 +1,23 @@
+:root{
+  --text-s: 12px;
+  --text-m: 14px;
+  --text-l: 18px;
+  --title-s: 32px;
+  --title-m: 40px;
+
+  --special-letter-spacing: 15px;
+
+  --bold: 700;
+  --regular: 400;
+
+  --primary-color: #FFFFFF;
+  --secondary-color: #494C6B;
+  --unselected-color: #9495A5;
+  --selected-color: #3A7CFD;
+  --gradient-color: linear-gradient(25deg, #55DDFF, #C058F3);
+
+}
+
 * {
   box-sizing: border-box;
 }
@@ -22,4 +42,149 @@ body {
   margin: 0;
   font-family: "Josefin Sans", sans-serif;
   font-style: normal;
+  font-weight: var(--regular);
+  background-color: grey;
 }
+
+/* HEADER CONTAINER */
+.header{
+  background-image: url(../assets/images/bg-mobile-light.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 12.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 20.3125rem;
+}
+@media  screen and (min-width: 700px) {
+  .header{
+    background-image: url(../assets/images/bg-desktop-light.jpg)
+  }
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* TEXTOS */
+.title{
+  color: var(--primary-color);
+  letter-spacing: var(--special-letter-spacing);
+  font-size: var(--title-s);
+  font-weight: var(--bold);
+}
+.task-text{
+  font-size: var(--text-s);
+  color: var(--secondary-color);
+}
+.bottom-task-text{
+  font-size: var(--text-s);
+  color: var(--unselected-color);
+}
+.filter-text{
+  font-size: var(--text-m);
+  color: var(--unselected-color);
+  font-weight: var(--bold);
+}
+.footer-text{
+  font-size: var(--text-m);
+  color: var(--unselected-color);
+}
+@media  screen and (min-width: 700px) {
+  .title{ 
+    font-size: var(--title-m);
+  }
+  .task-text{
+    font-size: var(--text-l);
+  }
+  .bottom-task-text{
+    font-size: var(--text-m);
+  }
+}
+/* FINAL TEXTOS */
+
+/* INPUT */
+.input{
+  border-radius: 0.3125rem;
+  font-family: inherit;
+  width: 20.4375rem;
+}
+@media  screen and (min-width: 700px) {
+  .input{
+    width: 33.75rem;
+  }
+}
+
+/*LISTA DE TAREAS*/
+.task{
+  width: 20.4375rem;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border: none;
+}
+.checkbox-circle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}
+.checkbox-circle::before{
+  content: '';
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 100%;
+  border: 1px solid var(--unselected-color);
+}
+.checkbox-input{
+  display: none;
+}
+.eliminate-task-button{
+  border: none;
+  background-color: transparent;
+  color: var(--unselected-color);
+  font-size: var(--text-m);
+}
+.task-item{
+  border-radius: 0.3125rem 0.3125rem 0 0;
+}
+.task-footer{
+  border-radius: 0 0 0.3125rem 0.3125rem;
+}
+@media  screen and (min-width: 700px) {
+  .input{
+    width: 33.75rem;
+  }
+}
+/* FIN LISTA DE TAREAS */
+
+/* BOTONES */
+.button{
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+}
+.button-selected{
+  color: var(--selected-color);
+}
+/* FIN BOTONES */
+
+/* FILTROS */
+.filters{
+  border-radius: 0.3125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* FIN FILTROS */
