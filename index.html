@@ -22,27 +22,30 @@
         <input type="text" placeholder="Create a new todo..." id="input" class="task task-text input">
         <label for="input"></label>
       </form>
-      <section>
 
-        <section id="task-list">
-          <div class="task task-item">
+      <section>
+        <section>
+          <div class="task task-header" id="task-header">
             <input type="checkbox" id="checkbox-task" class="task-text checkbox-input">
-            <label for="checkbox-task" class="checkbox-circle">Ejemplo de task</label>
+            <label for="checkbox-task" class="checkbox-circle">Define your task</label>
             <button class="eliminate-task-button" id="eliminate-task-button">x</button>
           </div>
         </section>
+        
+        <section id="task-list">
+        </section>
 
         <section class="task task-footer">
-          <span class="bottom-task-text">x items left</span>
+          <span class="bottom-task-text" id="items-left-text">x items left</span>
         <button class="button bottom-task-text">Clear Completed</button>
       </section>
 
       </section>
 
       <section id="filters" class="task filters">
-        <button data-filter="All" class="button filter-text">All</button>
-        <button data-filter="Active" class="button filter-text">Active</button>
-        <button data-filter="Completed" class="button filter-text">Completed</button>
+        <button data-filter="all" class="button filter-text button-selected">All</button>
+        <button data-filter="active" class="button filter-text">Active</button>
+        <button data-filter="completed" class="button filter-text">Completed</button>
       </section>
 
     </section>

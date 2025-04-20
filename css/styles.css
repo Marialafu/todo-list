@@ -145,19 +145,32 @@ body {
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 100%;
-  border: 1px solid var(--unselected-color);
+  border: 0.0625rem solid var(--unselected-color);
+}
+
+.checkbox-input:checked + .checkbox-circle::before{
+  background-image: var(--gradient-color);
+  border: none;
+}
+.checkbox-input:checked + .checkbox-circle{
+  text-decoration: line-through;
+  color: var(--unselected-color);
 }
 .checkbox-input{
   display: none;
 }
+
 .eliminate-task-button{
   border: none;
   background-color: transparent;
   color: var(--unselected-color);
   font-size: var(--text-m);
 }
-.task-item{
+.task-header{
   border-radius: 0.3125rem 0.3125rem 0 0;
+}
+.task-item{
+  border-radius: none;
 }
 .task-footer{
   border-radius: 0 0 0.3125rem 0.3125rem;
@@ -188,3 +201,8 @@ body {
   justify-content: center;
 }
 /* FIN FILTROS */
+
+/* FOOTER */
+.footer-text{
+  text-align: center;
+}
