@@ -9,33 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
-  <body>
-    <header class="header">
+  <body id="body">
+    <header class="header" id="header">
       <section class="header-info">
         <h1 class="title">TODO</h1>
-        <img src="./assets/images/icon-moon.svg" alt="">
+        <img src="./assets/images/icon-moon.svg" alt="" id="turn-mode-button">
       </section>
     </header>
     <main>
     <section class="container">
       <form id="form" class="form-container">
         <input type="text" placeholder="Create a new task..." id="input" class="task task-text input">
-        <label for="input"></label>
+        <label for="input" class="task-text"></label>
       </form>
 
-      <section class="tasks-container">
+      <section class="tasks-container task-text">
         
-        <section id="task-list">
+        <section id="task-list" class="task-list">
         </section>
 
-        <section class="task">
+        <section class="task task-list">
           <span class="bottom-task-text" id="items-left-text">0 items left</span>
         <button class="button bottom-task-text" id="clear-completed-button">Clear Completed</button>
       </section>
 
       </section>
 
-      <section id="filters" class="task filters">
+      <section id="filters" class="task filters border-radius">
         <button data-filter="all" class="button filter-text button-selected">All</button>
         <button data-filter="active" class="button filter-text">Active</button>
         <button data-filter="completed" class="button filter-text">Completed</button>

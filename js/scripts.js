@@ -7,6 +7,11 @@ const clearCompletedButtonElement = document.getElementById(
   'clear-completed-button'
 );
 
+const headerElement = document.getElementById('header')
+const bodyElement = document.getElementById('body')
+const turnModeButtonElement = document.getElementById('turn-mode-button')
+const rootStyles = document.documentElement.style
+
 const taskListElement = document.getElementById('task-list');
 
 const filtersElement = document.getElementById('filters');
@@ -20,6 +25,7 @@ let tasksList = [
 ];
 
 let listSelected = '';
+let darkMode = false;
 
 const createNewTask = event => {
   event.preventDefault();
@@ -33,7 +39,7 @@ const createNewTask = event => {
   tasksList.push(newTask);
 
   inputElement.value = '';
-  insertTask();
+  insertTask(tasksList);
 };
 
 const clearCompletedTasks = () => {
@@ -41,14 +47,14 @@ const clearCompletedTasks = () => {
     return !task.completed;
   });
 
-  insertTask();
+  insertTask(tasksList);
 };
 
 const deleteTasks = id => {
   tasksList = tasksList.filter(task => {
     return task.id !== id;
   });
-  insertTask();
+  insertTask(tasksList);
 };
 
 const completedTasks = id => {
@@ -57,8 +63,7 @@ const completedTasks = id => {
       tasksList[i].completed = !tasksList[i].completed;
     }
   }
-
-  insertTask();
+  insertTask(tasksList);
 };
 
 const itemsLeft = () => {
@@ -69,10 +74,10 @@ const itemsLeft = () => {
   } else itemsLeftTextElement.textContent = `No tasks`;
 };
 
-const insertTask = () => {
+const insertTask = (list) => {
   //el contenedor general se resetea para pintar de nuevo los divs.
   taskListElement.textContent = '';
-  tasksList.forEach(taskItem => {
+  list.forEach(taskItem => {
     const task = document.createElement('div');
     task.classList.add('task');
     task.classList.add('task-item');
@@ -116,21 +121,55 @@ const filterList = event => {
   }
   event.target.classList.add('button-selected');
 
-  //   const removeTask = id => {
-  //     tasksList = tasksList.filter(task => {
-  //       return task.id !== id;
-  //     });
-  //   };
+  let active = []
+  let completed = []
 
-  console.log(event.target.dataset.filter);
-  console.log(taskListElement.children);
-
-  console.log(tasksList);
-  insertTask();
+  tasksList.filter(task => {
+    !task.completed ? active.push(task) : completed.push(task)
+  })
+  
+  if (listSelected === 'all'){
+    insertTask(tasksList)
+  } else if (listSelected === 'active'){
+    insertTask(active)
+  } else {insertTask(completed)}
+  console.log(active);
+  
 };
 
-insertTask();
+const changeMode = () => {
+  //se supone que tiene que ser tan largo?
+  darkMode = !darkMode
 
+  if (darkMode){
+    turnModeButtonElement.src = './assets/images/icon-sun.svg'
+
+    rootStyles.setProperty('--primary-color', '#25273D')
+    rootStyles.setProperty('--secondary-color', '#C8CBE7')
+    rootStyles.setProperty('--unselected-color', '#5B5E7E')
+    rootStyles.setProperty('--shadow', '0 2.1875rem 3.125rem -0.9375rem rgba(0, 0, 0, 0.5)')
+
+    headerElement.classList.add('dark')
+    bodyElement.classList.add('dark-background')
+
+  } else {
+    turnModeButtonElement.src = './assets/images/icon-moon.svg'
+
+    rootStyles.setProperty('--primary-color', '#FFFFFF')
+    rootStyles.setProperty('--secondary-color', '#494C6B')
+    rootStyles.setProperty('--unselected-color', '#9495A5')
+    rootStyles.setProperty('--shadow', '0 2.1875rem 3.125rem -0.9375rem rgba(194, 195, 214, 0.5)')
+
+    headerElement.classList.remove('dark')
+    bodyElement.classList.remove('dark-background')
+  }
+
+}
+
+insertTask(tasksList);
+
+
+turnModeButtonElement.addEventListener('click', changeMode)
 clearCompletedButtonElement.addEventListener('click', clearCompletedTasks);
 filtersElement.addEventListener('click', filterList);
 formElement.addEventListener('submit', createNewTask);
