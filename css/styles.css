@@ -43,7 +43,7 @@ body {
   font-family: "Josefin Sans", sans-serif;
   font-style: normal;
   font-weight: var(--regular);
-  background-color: grey;
+  background-color: var(--primary-color);
 }
 
 /* HEADER CONTAINER */
@@ -65,14 +65,29 @@ body {
 }
 @media  screen and (min-width: 700px) {
   .header{
-    background-image: url(../assets/images/bg-desktop-light.jpg)
+    background-image: url(../assets/images/bg-desktop-light.jpg);
+    height: 18.75rem;
+  }
+  .header-info{
+    width: 33.8125rem;
   }
 }
 .container{
+  position: relative;
+  top: -4.375rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  width: 20.4375rem;
+  margin-inline: auto;
+  box-shadow: 0 2.1875rem 3.125rem -15px rgba(194, 195, 214, 0.5);
+}
+@media  screen and (min-width: 700px) {
+  .container{
+    width: 33.75rem;
+    top: -6.875rem;
+  }
 }
 
 /* TEXTOS */
@@ -113,10 +128,12 @@ body {
 /* FINAL TEXTOS */
 
 /* INPUT */
+.form-container{
+  width: 100%;
+}
 .input{
   border-radius: 0.3125rem;
   font-family: inherit;
-  width: 20.4375rem;
 }
 @media  screen and (min-width: 700px) {
   .input{
@@ -125,14 +142,24 @@ body {
 }
 
 /*LISTA DE TAREAS*/
+.tasks-container{
+  width: 100%;
+}
 .task{
-  width: 20.4375rem;
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   padding: 1rem 1.25rem;
   border: none;
+}
+
+.task:first-child{
+  border-radius: 0.3125rem;
+}
+.task-list{
+  border-radius: 0.3125rem 0.3125rem 0 0;
 }
 .checkbox-circle{
   display: flex;
@@ -149,7 +176,9 @@ body {
 }
 
 .checkbox-input:checked + .checkbox-circle::before{
-  background-image: var(--gradient-color);
+  background-image:url(../assets/images/icon-check.svg), var(--gradient-color);
+  background-repeat: no-repeat;
+  background-position: center;
   border: none;
 }
 .checkbox-input:checked + .checkbox-circle{
@@ -165,20 +194,6 @@ body {
   background-color: transparent;
   color: var(--unselected-color);
   font-size: var(--text-m);
-}
-.task-header{
-  border-radius: 0.3125rem 0.3125rem 0 0;
-}
-.task-item{
-  border-radius: none;
-}
-.task-footer{
-  border-radius: 0 0 0.3125rem 0.3125rem;
-}
-@media  screen and (min-width: 700px) {
-  .input{
-    width: 33.75rem;
-  }
 }
 /* FIN LISTA DE TAREAS */
 
@@ -205,4 +220,5 @@ body {
 /* FOOTER */
 .footer-text{
   text-align: center;
+  margin: 0;
 }

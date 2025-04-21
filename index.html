@@ -18,26 +18,19 @@
     </header>
     <main>
     <section class="container">
-      <form id="form">
-        <input type="text" placeholder="Create a new todo..." id="input" class="task task-text input">
+      <form id="form" class="form-container">
+        <input type="text" placeholder="Create a new task..." id="input" class="task task-text input">
         <label for="input"></label>
       </form>
 
-      <section>
-        <section>
-          <div class="task task-header" id="task-header">
-            <input type="checkbox" id="checkbox-task" class="task-text checkbox-input">
-            <label for="checkbox-task" class="checkbox-circle">Define your task</label>
-            <button class="eliminate-task-button" id="eliminate-task-button">x</button>
-          </div>
-        </section>
+      <section class="tasks-container">
         
         <section id="task-list">
         </section>
 
-        <section class="task task-footer">
-          <span class="bottom-task-text" id="items-left-text">x items left</span>
-        <button class="button bottom-task-text">Clear Completed</button>
+        <section class="task">
+          <span class="bottom-task-text" id="items-left-text">0 items left</span>
+        <button class="button bottom-task-text" id="clear-completed-button">Clear Completed</button>
       </section>
 
       </section>

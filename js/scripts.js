@@ -1,117 +1,136 @@
-const formElement = document.getElementById('form')
-const inputElement = document.getElementById('input')
-const taskItemElement = document.getElementById('task-item')
-const itemsLeftTextElement = document.getElementById('items-left-text')
+const formElement = document.getElementById('form');
+const inputElement = document.getElementById('input');
 
-const taskListElement = document.getElementById('task-list')
+const taskItemElement = document.getElementById('task-item');
+const itemsLeftTextElement = document.getElementById('items-left-text');
+const clearCompletedButtonElement = document.getElementById(
+  'clear-completed-button'
+);
 
-const filtersElement = document.getElementById('filters')
+const taskListElement = document.getElementById('task-list');
 
-const all = [];
+const filtersElement = document.getElementById('filters');
 
-let active = []
-let completed = []
-let listSelected = ''
+let tasksList = [
+  {
+    id: Date.now(),
+    name: 'Define your taks',
+    completed: false
+  }
+];
 
+let listSelected = '';
 
-const createNewTask = () => {
-    event.preventDefault()
+const createNewTask = event => {
+  event.preventDefault();
 
-   let newTask = {
+  let newTask = {
     id: Date.now(),
     name: inputElement.value,
-    completed: false,
-    } 
-    all.push(newTask)
-    active.push(newTask)
+    completed: false
+  };
 
-    insertTask()
-}
-console.log(all);
+  tasksList.push(newTask);
+
+  inputElement.value = '';
+  insertTask();
+};
+
+const clearCompletedTasks = () => {
+  tasksList = tasksList.filter(task => {
+    return !task.completed;
+  });
+
+  insertTask();
+};
+
+const deleteTasks = id => {
+  tasksList = tasksList.filter(task => {
+    return task.id !== id;
+  });
+  insertTask();
+};
+
+const completedTasks = id => {
+  for (let i = 0; i < tasksList.length; i++) {
+    if (tasksList[i].id === id) {
+      tasksList[i].completed = !tasksList[i].completed;
+    }
+  }
+
+  insertTask();
+};
+
+const itemsLeft = () => {
+  const activeItems = tasksList.filter(task => !task.completed);
+
+  if (activeItems.length > 0) {
+    itemsLeftTextElement.textContent = `${activeItems.length} items left`;
+  } else itemsLeftTextElement.textContent = `No tasks`;
+};
 
 const insertTask = () => {
-    //el contenedor general se resetea para pintar de nuevo los divs.
-    taskListElement.textContent = "",
+  //el contenedor general se resetea para pintar de nuevo los divs.
+  taskListElement.textContent = '';
+  tasksList.forEach(taskItem => {
+    const task = document.createElement('div');
+    task.classList.add('task');
+    task.classList.add('task-item');
+    task.id = taskItem.name;
 
-    all.forEach(taskItem => {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('task-text');
+    checkbox.classList.add('checkbox-input');
+    checkbox.id = taskItem.id;
+    checkbox.checked = taskItem.completed;
+    checkbox.addEventListener('change', () => completedTasks(taskItem.id));
 
-    const task = document.createElement('div')
-    task.classList.add('task')
-    task.classList.add('task-item')
-    task.id = taskItem.name
+    const circle = document.createElement('label');
+    circle.classList.add('checkbox-circle');
+    //GUARDAR QUE ASÍ ES COMO SE PONE EL FOR PRA ENLAZARLO
+    circle.htmlFor = taskItem.id;
+    circle.textContent = taskItem.name;
 
-    const checkbox = document.createElement('input')
-    checkbox.type = 'checkbox'
-    checkbox.classList.add('task-text')
-    checkbox.classList.add('checkbox-input')
-    checkbox.id = taskItem.id
-    checkbox.addEventListener('change', () => {
-     taskItem.completed = !taskItem.completed
-    })
-    
-    const circle = document.createElement('label')
-    circle.classList.add('checkbox-circle')
-    //se pone así?
-    circle.setAttribute('for', taskItem.id)
-    circle.textContent = taskItem.name
+    const eliminateButton = document.createElement('button');
+    eliminateButton.classList.add('eliminate-task-button');
+    eliminateButton.textContent = 'x';
+    eliminateButton.addEventListener('click', () => deleteTasks(taskItem.id));
 
-    const eliminateButton = document.createElement('button')
-    eliminateButton.classList.add('eliminate-task-button')
-    eliminateButton.id = 'eliminate-task-button'
-    eliminateButton.textContent = 'x'
-    eliminateButton.addEventListener('click', ()=> {
-        task.remove()
-        //me chivó josefa que con splice, pero luego lo busqué en página oficial
-        all.splice(all.indexOf(taskItem), 1);
-        active.splice(active.indexOf(taskItem), 1);
-        //el tercer valor es item, 
-    })
-    task.append(checkbox)
-    task.append(circle)
-    task.append(eliminateButton)
-    taskListElement.append(task)
-    })
-}
+    task.append(checkbox);
+    task.append(circle);
+    task.append(eliminateButton);
+    taskListElement.append(task);
+  });
 
-const filterList = (event) => {
-    listSelected = event.target.dataset.filter
-    const amountFilters = filtersElement.children.length
+  itemsLeft();
+};
 
-    //se supone que aquí hay que usar el data para quitar y poner el color?
-    for (let i = 0; i < amountFilters; i++){
-        filtersElement.children[i].classList.remove('button-selected')
-    }
-    event.target.classList.add('button-selected')
+const filterList = event => {
+  listSelected = event.target.dataset.filter;
+  const amountFilters = filtersElement.children.length;
 
-    //reseteamos la lista de complete
-    completed = []
-    all.forEach(taskItem => {
-        if (taskItem.completed){
-            completed.push(taskItem)
-            //aquí elimino la que se mete en complete de la lista de active.
-            active.splice(active.indexOf(taskItem), 1);
-        }
-    })
+  //se supone que aquí hay que usar el data para quitar y poner el color?
+  for (let i = 0; i < amountFilters; i++) {
+    filtersElement.children[i].classList.remove('button-selected');
+  }
+  event.target.classList.add('button-selected');
 
-    //todas las
-    console.log(event.target.dataset.filter);
-    console.log(taskListElement.children);
-    
-    
+  //   const removeTask = id => {
+  //     tasksList = tasksList.filter(task => {
+  //       return task.id !== id;
+  //     });
+  //   };
 
-    
-    
-    //pulsando en el botón hacemos que la lista aprezca
+  console.log(event.target.dataset.filter);
+  console.log(taskListElement.children);
 
+  console.log(tasksList);
+  insertTask();
+};
 
+insertTask();
 
-    console.log(completed);
-    console.log(active);
-    console.log(all);
-}
-
-filtersElement.addEventListener('click', filterList)
-formElement.addEventListener('submit', createNewTask)
-
-
-
+clearCompletedButtonElement.addEventListener('click', clearCompletedTasks);
+filtersElement.addEventListener('click', filterList);
+formElement.addEventListener('submit', createNewTask);
