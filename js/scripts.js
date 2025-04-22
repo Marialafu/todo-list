@@ -7,10 +7,10 @@ const clearCompletedButtonElement = document.getElementById(
   'clear-completed-button'
 );
 
-const headerElement = document.getElementById('header')
-const bodyElement = document.getElementById('body')
-const turnModeButtonElement = document.getElementById('turn-mode-button')
-const rootStyles = document.documentElement.style
+const headerElement = document.getElementById('header');
+const bodyElement = document.getElementById('body');
+const turnModeButtonElement = document.getElementById('turn-mode-button');
+const rootStyles = document.documentElement.style;
 
 const taskListElement = document.getElementById('task-list');
 
@@ -74,7 +74,7 @@ const itemsLeft = () => {
   } else itemsLeftTextElement.textContent = `No tasks`;
 };
 
-const insertTask = (list) => {
+const insertTask = list => {
   //el contenedor general se resetea para pintar de nuevo los divs.
   taskListElement.textContent = '';
   list.forEach(taskItem => {
@@ -115,61 +115,67 @@ const filterList = event => {
   listSelected = event.target.dataset.filter;
   const amountFilters = filtersElement.children.length;
 
+  if (!listSelected) return;
+
   //se supone que aquí hay que usar el data para quitar y poner el color?
   for (let i = 0; i < amountFilters; i++) {
     filtersElement.children[i].classList.remove('button-selected');
   }
   event.target.classList.add('button-selected');
 
-  let active = []
-  let completed = []
+  let active = [];
+  let completed = [];
 
   tasksList.filter(task => {
-    !task.completed ? active.push(task) : completed.push(task)
-  })
-  
-  if (listSelected === 'all'){
-    insertTask(tasksList)
-  } else if (listSelected === 'active'){
-    insertTask(active)
-  } else {insertTask(completed)}
+    !task.completed ? active.push(task) : completed.push(task);
+  });
+
+  if (listSelected === 'all') {
+    insertTask(tasksList);
+  } else if (listSelected === 'active') {
+    insertTask(active);
+  } else {
+    insertTask(completed);
+  }
   console.log(active);
-  
 };
 
 const changeMode = () => {
   //se supone que tiene que ser tan largo?
-  darkMode = !darkMode
+  darkMode = !darkMode;
 
-  if (darkMode){
-    turnModeButtonElement.src = './assets/images/icon-sun.svg'
+  if (darkMode) {
+    turnModeButtonElement.src = './assets/images/icon-sun.svg';
 
-    rootStyles.setProperty('--primary-color', '#25273D')
-    rootStyles.setProperty('--secondary-color', '#C8CBE7')
-    rootStyles.setProperty('--unselected-color', '#5B5E7E')
-    rootStyles.setProperty('--shadow', '0 2.1875rem 3.125rem -0.9375rem rgba(0, 0, 0, 0.5)')
+    rootStyles.setProperty('--primary-color', '#25273D');
+    rootStyles.setProperty('--secondary-color', '#C8CBE7');
+    rootStyles.setProperty('--unselected-color', '#5B5E7E');
+    rootStyles.setProperty(
+      '--shadow',
+      '0 2.1875rem 3.125rem -0.9375rem rgba(0, 0, 0, 0.5)'
+    );
 
-    headerElement.classList.add('dark')
-    bodyElement.classList.add('dark-background')
-
+    headerElement.classList.add('dark');
+    bodyElement.classList.add('dark-background');
   } else {
-    turnModeButtonElement.src = './assets/images/icon-moon.svg'
+    turnModeButtonElement.src = './assets/images/icon-moon.svg';
 
-    rootStyles.setProperty('--primary-color', '#FFFFFF')
-    rootStyles.setProperty('--secondary-color', '#494C6B')
-    rootStyles.setProperty('--unselected-color', '#9495A5')
-    rootStyles.setProperty('--shadow', '0 2.1875rem 3.125rem -0.9375rem rgba(194, 195, 214, 0.5)')
+    rootStyles.setProperty('--primary-color', '#FFFFFF');
+    rootStyles.setProperty('--secondary-color', '#494C6B');
+    rootStyles.setProperty('--unselected-color', '#9495A5');
+    rootStyles.setProperty(
+      '--shadow',
+      '0 2.1875rem 3.125rem -0.9375rem rgba(194, 195, 214, 0.5)'
+    );
 
-    headerElement.classList.remove('dark')
-    bodyElement.classList.remove('dark-background')
+    headerElement.classList.remove('dark');
+    bodyElement.classList.remove('dark-background');
   }
-
-}
+};
 
 insertTask(tasksList);
 
-
-turnModeButtonElement.addEventListener('click', changeMode)
+turnModeButtonElement.addEventListener('click', changeMode);
 clearCompletedButtonElement.addEventListener('click', clearCompletedTasks);
 filtersElement.addEventListener('click', filterList);
 formElement.addEventListener('submit', createNewTask);
